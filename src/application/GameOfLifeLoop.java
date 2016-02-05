@@ -17,15 +17,22 @@ public class GameOfLifeLoop extends AnimationTimer{
 
 	}
 
+	public void kek(){
+
+		gl.clearBoard();
+		//gl.randomBoard();
+		gl.tenCellSeed();
+	}
+
 	@Override
 	public void handle(long now) {
 		// TODO Auto-generated method stub
-		
-		gl.clearBoard();
-		gl.randomBoard();
+
+//		gl.clearBoard();
+//		gl.randomBoard();
 		cellBoard = gl.getCellBoard();
 		drawCellBoard(cellBoard);
-		
+
 		gc.setStroke(Color.BLACK);
 		gc.setLineWidth(2);
 
@@ -43,22 +50,27 @@ public class GameOfLifeLoop extends AnimationTimer{
 
 		}
 
-
-
+		gl.checkRulesOfLife();
+		
+		try {
+		    Thread.sleep(2000);                 //1000 milliseconds is one second.
+		} catch(InterruptedException ex) {
+		    Thread.currentThread().interrupt();
+		}
 	}
 
 	public void drawCellBoard(Cell[][] cellBoard){
 
 		for(int i = 0; i < cellBoard.length; i++){
 			for(int j = 0; j < cellBoard[0].length; j++){
-				
+
 				if(cellBoard[i][j].getState() == 0){
-					
+
 					gc.setFill(Color.WHITE);
 					gc.fillRect(i*10,j*10,10,10);
 				}
 				if(cellBoard[i][j].getState() == 1){
-					
+
 					gc.setFill(Color.SPRINGGREEN);
 					gc.fillRect(i*10,j*10,10,10);
 				}

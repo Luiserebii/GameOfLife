@@ -25,6 +25,7 @@ public class Main extends Application {
 			GraphicsContext gc = canvas.getGraphicsContext2D();
 			
 			GameOfLifeLoop gl = new GameOfLifeLoop(gc);
+			gl.kek();
 			gl.start();
 
 
