@@ -51,9 +51,10 @@ public class GameOfLifeLoop extends AnimationTimer{
 		}
 
 		gl.checkRulesOfLife();
-		
+		gl.setTempStates();
+
 		try {
-		    Thread.sleep(2000);                 //1000 milliseconds is one second.
+		    Thread.sleep(200);                 //1000 milliseconds is one second.
 		} catch(InterruptedException ex) {
 		    Thread.currentThread().interrupt();
 		}
@@ -67,12 +68,12 @@ public class GameOfLifeLoop extends AnimationTimer{
 				if(cellBoard[i][j].getState() == 0){
 
 					gc.setFill(Color.WHITE);
-					gc.fillRect(i*10,j*10,10,10);
+					gc.fillRect(j*10,i*10,10,10); //reversed b/c row/column --> y/x
 				}
 				if(cellBoard[i][j].getState() == 1){
 
 					gc.setFill(Color.SPRINGGREEN);
-					gc.fillRect(i*10,j*10,10,10);
+					gc.fillRect(j*10,i*10,10,10);
 				}
 
 

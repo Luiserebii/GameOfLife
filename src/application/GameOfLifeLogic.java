@@ -4,7 +4,8 @@ import java.util.Random;
 
 public class GameOfLifeLogic {
 
-	public Cell[][] cellBoard = new Cell[60][40];
+	//public Cell[][] cellBoard = new Cell[60][40];
+	public Cell[][] cellBoard = new Cell[40][60]; //note x and y is reversed b/c row/column --> y/x
 
 
 
@@ -15,6 +16,7 @@ public class GameOfLifeLogic {
 
 				//System.out.println(i + " " + j + " " + cellBoard.length);
 				cellBoard[i][j] = new Cell();
+				//System.out.println(j + "  " + i);
 
 			}
 		}
@@ -42,15 +44,15 @@ public class GameOfLifeLogic {
 
 
 	}
-	
+
 	public void tenCellSeed(){
-		
+
 		for(int i = 0; i < 10; i++){
-			
-			cellBoard[i + 20][19].setState(1);
-			
-			
-		}		
+
+			cellBoard[19][i+20].setState(1);
+
+
+		}
 	}
 
 	public void checkRulesOfLife(){
@@ -60,24 +62,26 @@ public class GameOfLifeLogic {
 
 				//System.out.println(i + "    " + j);
 				int neighborInt = getNeighbors(i,j);
-				if(neighborInt > 0){
-				System.out.println(neighborInt);}
 
 				if(cellBoard[i][j].getState() == 1){
 					if(neighborInt <= 1){ //if one or no neighbors
-						cellBoard[i][j].setState(0); //dies
+						//cellBoard[i][j].setState(0); //dies
+						cellBoard[i][j].setTempState(0);
 					}
 					if(neighborInt >= 4){ //if four or more neigbors
-						cellBoard[i][j].setState(0); //DIE
+						//cellBoard[i][j].setState(0); //DIE
+						cellBoard[i][j].setTempState(0);
 					}
 					if(neighborInt == 2 || neighborInt == 3){ //if two or three neighbors
 						//stays alive
+						cellBoard[i][j].setTempState(1);
 					}
 				}
 
 				if(cellBoard[i][j].getState() == 0){ //If dead
 					if(neighborInt == 3){ //if three neighbors
-						cellBoard[i][j].setState(1); //I LIIIIIIIIIIIIIIIIIIVEEE!!!!
+						//cellBoard[i][j].setState(1); //I LIIIIIIIIIIIIIIIIIIVEEE!!!!
+						cellBoard[i][j].setTempState(1);
 					}
 				}
 
@@ -92,6 +96,18 @@ public class GameOfLifeLogic {
 
 	}
 
+	public void setTempStates(){
+
+		for(int i = 0; i < cellBoard.length; i++){
+			for(int j = 0; j < cellBoard[0].length; j++){
+
+				int tempState = cellBoard[i][j].getTempState();
+				cellBoard[i][j].setState(tempState);
+			}
+		}
+
+	}
+
 	public int getNeighbors(int i, int j){
 
 		int neighborInt = 0;
@@ -100,21 +116,23 @@ public class GameOfLifeLogic {
 		boolean isGotUp = true;
 		boolean isGotDown = true;
 
-		if(i < 1){ //left boundary + 1 SOMETHING TO REFACTOR FOR HEIGHT/WIDTH
+		if(j < 1){ //left boundary + 1 SOMETHING TO REFACTOR FOR HEIGHT/WIDTH
 			isGotLeft = false;
 		}
-		if(i > 58){ //right boundary - 1
+		if(j > 58){ //right boundary - 1    58
 			isGotRight = false;
 		}
-		if(j < 1){
+		if(i < 1){
 			isGotUp = false;
 		}
-		if(j > 38){
+		if(i > 38){  //j is x, i is y
 			isGotDown = false;
 		}
 
+		//System.out.println(j + " " + i + " " + (i>38));
+
 		if(isGotLeft){ //if its got neighbors to the left of it
-			if(cellBoard[i-1][j].getState() == 1){ //check the direct left
+			if(cellBoard[i][j-1].getState() == 1){ //check the direct left
 				neighborInt++;
 			}
 			if(isGotUp){ //if neighbor left-up
@@ -123,18 +141,18 @@ public class GameOfLifeLogic {
 				}
 			}
 			if(isGotDown){ //if neighbor left-down
-				if(cellBoard[i-1][j+1].getState() == 1){
+				if(cellBoard[i+1][j-1].getState() == 1){
 					neighborInt++;
 				}
 			}
 
 		}
 		if(isGotRight){ //if its got neighbors to the right of it
-			if(cellBoard[i+1][j].getState() == 1){
+			if(cellBoard[i][j+1].getState() == 1){
 				neighborInt++;
 			}
 			if(isGotUp){ //if neighbor right-up
-				if(cellBoard[i+1][j-1].getState() == 1){
+				if(cellBoard[i-1][j+1].getState() == 1){
 					neighborInt++;
 				}
 			}
@@ -146,12 +164,12 @@ public class GameOfLifeLogic {
 		}
 		//So far, we have checked all left (left-direct, left-up, left-down) and all right - but could still be up and down pure
 		if(isGotUp){
-			if(cellBoard[i][j-1].getState() == 1){
+			if(cellBoard[i-1][j].getState() == 1){
 				neighborInt++;
 			}
 		}
 		if(isGotDown){
-			if(cellBoard[i][j+1].getState() == 1){
+			if(cellBoard[i+1][j].getState() == 1){
 				neighborInt++;
 			}
 		}
