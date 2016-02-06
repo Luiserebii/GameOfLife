@@ -1,0 +1,29 @@
+Conway's Game of Life - v0.1
+----------------------------
+
+Very basic implementation of Conway's Game of
+Life. Creates 10 cell seed, cycles through
+at 0.2 sec., with applied Conway's Game of Life
+implementation. 
+
+
+As of v0.1:
+-----------
+-Created CellBoard
+-Rules to update CellBoard
+-CellBoard can be drawn to
+
+
+Future Functionality:
+---------------------
+-Buttons to play/pause CellBoard
+-Slider to speed up/slow down CellBoard
+-Inserting functionality for different colors/styles, maybe even for never-alive/dead/alive
+-Ability to insert different patterns as starting seeds
+-Custom seeds 
+-Refactoring of code to allow different sized CellBoard
+
+
+
+
+
