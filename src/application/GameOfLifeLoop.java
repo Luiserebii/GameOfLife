@@ -20,8 +20,8 @@ public class GameOfLifeLoop extends AnimationTimer{
 	public void kek(){
 
 		gl.clearBoard();
-		//gl.randomBoard();
-		gl.tenCellSeed();
+		gl.randomBoard();
+		//gl.tenCellSeed();
 	}
 
 	@Override
@@ -54,7 +54,7 @@ public class GameOfLifeLoop extends AnimationTimer{
 		gl.setTempStates();
 
 		try {
-		    Thread.sleep(200);                 //1000 milliseconds is one second.
+		    Thread.sleep(100);                 //1000 milliseconds is one second.
 		} catch(InterruptedException ex) {
 		    Thread.currentThread().interrupt();
 		}
@@ -67,7 +67,7 @@ public class GameOfLifeLoop extends AnimationTimer{
 
 				if(cellBoard[i][j].getState() == 0){
 
-					gc.setFill(Color.WHITE);
+					gc.setFill(Color.BLACK); //was WHITE
 					gc.fillRect(j*10,i*10,10,10); //reversed b/c row/column --> y/x
 				}
 				if(cellBoard[i][j].getState() == 1){
