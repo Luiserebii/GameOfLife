@@ -5,9 +5,27 @@ import java.util.Random;
 public class GameOfLifeLogic {
 
 	//public Cell[][] cellBoard = new Cell[60][40];
-	public Cell[][] cellBoard = new Cell[40][60]; //note x and y is reversed b/c row/column --> y/x
+	private Cell[][] cellBoard; //note x and y is reversed b/c row/column --> y/x
 
+	private int sizeLength = 600;
+	private int sizeWidth = 400;
 
+	public GameOfLifeLogic(int sL, int sW){
+
+		sizeLength = sL;
+		sizeWidth = sW;
+		cellBoard = new Cell[sizeWidth/10][sizeLength/10];
+
+	}
+
+	public int[] getSize(){
+
+		int[] arrSize = new int[2];
+		arrSize[0] = sizeLength;
+		arrSize[1] = sizeWidth;
+		return arrSize;
+
+	}
 
 	public void clearBoard(){
 
@@ -28,7 +46,7 @@ public class GameOfLifeLogic {
 		Random rand = new Random();
 		for(int i = 0; i < cellBoard.length; i++){
 			for(int j = 0; j < cellBoard[0].length; j++){
-				int randomInt = rand.nextInt(2);
+				int randomInt = rand.nextInt(2); //2
 				//System.out.println(i + " " + j);
 				//System.out.println(cellBoard[i][j] == null);
 				if(randomInt == 0){
@@ -49,7 +67,7 @@ public class GameOfLifeLogic {
 
 		for(int i = 0; i < 10; i++){
 
-			cellBoard[19][i+20].setState(1);
+			cellBoard[((sizeWidth/10)/2)-1][i+(((sizeLength/10)/2)-5)].setState(1); //19 i+25
 
 
 		}
@@ -68,7 +86,7 @@ public class GameOfLifeLogic {
 						//cellBoard[i][j].setState(0); //dies
 						cellBoard[i][j].setTempState(0);
 					}
-					if(neighborInt >= 4){ //if four or more neigbors
+					if(neighborInt >= 4){ //if four or more neighbors TRY JUST 5 OR MORE LEAVE 2/3 TRIPPY AF, WITH 10 SEED
 						//cellBoard[i][j].setState(0); //DIE
 						cellBoard[i][j].setTempState(0);
 					}
@@ -119,13 +137,13 @@ public class GameOfLifeLogic {
 		if(j < 1){ //left boundary + 1 SOMETHING TO REFACTOR FOR HEIGHT/WIDTH
 			isGotLeft = false;
 		}
-		if(j > 58){ //right boundary - 1    58
+		if(j > ((sizeLength/10)-2)){ //right boundary - 1    58
 			isGotRight = false;
 		}
 		if(i < 1){
 			isGotUp = false;
 		}
-		if(i > 38){  //j is x, i is y
+		if(i > ((sizeWidth/10)-2)){  //j is x, i is y 38
 			isGotDown = false;
 		}
 

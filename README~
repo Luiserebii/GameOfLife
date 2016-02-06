@@ -22,6 +22,7 @@ Future Functionality:
 -Ability to insert different patterns as starting seeds
 -Custom seeds 
 -Refactoring of code to allow different sized CellBoard
+-Responsive design of CellBoard
 
 
 

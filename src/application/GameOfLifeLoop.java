@@ -1,5 +1,7 @@
 package application;
 
+import java.util.Random;
+
 import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
@@ -7,14 +9,13 @@ import javafx.scene.paint.Color;
 public class GameOfLifeLoop extends AnimationTimer{
 
 	GraphicsContext gc;
-	GameOfLifeLogic gl = new GameOfLifeLogic();
+	GameOfLifeLogic gl;
 	Cell[][] cellBoard;
 
-	public GameOfLifeLoop(GraphicsContext inGC){
+	public GameOfLifeLoop(GraphicsContext inGC, GameOfLifeLogic inGL){
 
 		gc = inGC;
-
-
+		gl = inGL;
 	}
 
 	public void kek(){
@@ -32,21 +33,22 @@ public class GameOfLifeLoop extends AnimationTimer{
 //		gl.randomBoard();
 		cellBoard = gl.getCellBoard();
 		drawCellBoard(cellBoard);
+		int[] boardSize = gl.getSize();
 
 		gc.setStroke(Color.BLACK);
 		gc.setLineWidth(2);
 
-		for(int i = 0; i*10 < 401; i++){ //draws horizontal lines
+		for(int i = 0; i*10 < boardSize[1] + 1; i++){ //draws horizontal lines 401
 
 			int yLine = i*10;
-			gc.strokeLine(0,yLine,600,yLine);
+			gc.strokeLine(0,yLine,boardSize[0],yLine); //600
 
 		}
 
-		for(int i = 0; i*10 < 601; i++){ //draws vertical lines
+		for(int i = 0; i*10 < boardSize[0] + 1; i++){ //draws vertical lines 601
 
 			int xLine = i*10;
-			gc.strokeLine(xLine,0,xLine,400);
+			gc.strokeLine(xLine,0,xLine,boardSize[1]); //400
 
 		}
 
@@ -54,7 +56,7 @@ public class GameOfLifeLoop extends AnimationTimer{
 		gl.setTempStates();
 
 		try {
-		    Thread.sleep(100);                 //1000 milliseconds is one second.
+		    Thread.sleep(100);                 //1000 milliseconds is one second. 100 is a good speed
 		} catch(InterruptedException ex) {
 		    Thread.currentThread().interrupt();
 		}
@@ -67,12 +69,17 @@ public class GameOfLifeLoop extends AnimationTimer{
 
 				if(cellBoard[i][j].getState() == 0){
 
-					gc.setFill(Color.BLACK); //was WHITE
+					gc.setFill(Color.BLACK); //was WHITE GREEN is so cool!!!
 					gc.fillRect(j*10,i*10,10,10); //reversed b/c row/column --> y/x
 				}
 				if(cellBoard[i][j].getState() == 1){
 
 					gc.setFill(Color.SPRINGGREEN);
+//					Random rand = new Random();
+//					int r = rand.nextInt(256);
+//					int g = rand.nextInt(256);
+//					int b = rand.nextInt(256);
+//					gc.setFill(Color.rgb(r,g,b));
 					gc.fillRect(j*10,i*10,10,10);
 				}
 

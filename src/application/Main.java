@@ -1,5 +1,7 @@
 package application;
 
+import java.util.Scanner;
+
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Group;
@@ -19,12 +21,18 @@ public class Main extends Application {
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("The Game of Life");
 
-			Canvas canvas = new Canvas(600,400);
+			Scanner sc = new Scanner(System.in);
+			System.out.println("Enter Length and Width");
+			int sL = sc.nextInt();
+			int sW = sc.nextInt();
+			GameOfLifeLogic gll = new GameOfLifeLogic(sL,sW);
+
+			Canvas canvas = new Canvas(sL,sW); //600,400
 			root.getChildren().add(canvas);
 
 			GraphicsContext gc = canvas.getGraphicsContext2D();
-			
-			GameOfLifeLoop gl = new GameOfLifeLoop(gc);
+
+			GameOfLifeLoop gl = new GameOfLifeLoop(gc,gll);
 			gl.kek();
 			gl.start();
 

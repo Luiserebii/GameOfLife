@@ -2,8 +2,8 @@ package application;
 
 public class Cell {
 
-	public int state;
-	int tempState;
+	private int state;
+	private int tempState;
 
 
 	public Cell(){
