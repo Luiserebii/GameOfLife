@@ -5,17 +5,36 @@ import java.util.Random;
 public class GameOfLifeLogic {
 
 	private Cell[][] cellBoard; //note x and y is reversed b/c row/column --> y/x
-
 	private int sizeLength = 600;
 	private int sizeWidth = 400;
 
-	public GameOfLifeLogic(int sL, int sW){
+	private int neighborCheck;
+
+	private boolean isChaos;
+
+	//Similar reasoning here for GameOfLifeLoop
+	public static class LogicBuilder {
+		private boolean isChaos = false;
+		public void setIsChaos(boolean inChaos){ isChaos = inChaos; }
+	}
+
+	public GameOfLifeLogic(int sL, int sW, LogicBuilder b){
 
 		sizeLength = sL;
 		sizeWidth = sW;
 		cellBoard = new Cell[sizeWidth/10][sizeLength/10];
-
+		isChaos = b.isChaos;
+		checkChaos();
 	}
+
+	public void checkChaos(){
+		if(!isChaos){
+			neighborCheck = 4;
+		} else {
+			neighborCheck = 5;
+		}
+	}
+
 
 	public int[] getSize(){
 
@@ -53,7 +72,6 @@ public class GameOfLifeLogic {
 				if(randomInt == 1){
 					cellBoard[i][j].setState(1);
 				}
-
 			}
 		}
 
@@ -79,7 +97,7 @@ public class GameOfLifeLogic {
 					if(neighborInt <= 1){ //if one or no neighbors
 						cellBoard[i][j].setTempState(0); //dies
 					}
-					if(neighborInt >= 4){ //if four or more neighbors TRY JUST 5 OR MORE LEAVE 2/3 TRIPPY AF, WITH 10 SEED
+					if(neighborInt >= neighborCheck){ //if four or more neighbors TRY JUST 5 OR MORE LEAVE 2/3 TRIPPY AF, WITH 10 SEED
 						cellBoard[i][j].setTempState(0); //DIE
 					}
 					if(neighborInt == 2 || neighborInt == 3){ //if two or three neighbors

@@ -5,12 +5,14 @@ import java.util.ResourceBundle;
 import java.util.Scanner;
 
 import gameoflife.GameOfLifeLogic;
+import gameoflife.GameOfLifeLogic.LogicBuilder;
 import gameoflife.GameOfLifeLoop;
 import gameoflife.GameOfLifeLoop.LoopBuilder;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -19,11 +21,18 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class GUIController implements Initializable {
 
-	private LoopBuilder builder;
+	private LoopBuilder loopbuilder;
+	private LogicBuilder logicbuilder;
 
 	@FXML
 	private TextField lengthField, widthField, colorField;
@@ -42,7 +51,13 @@ public class GUIController implements Initializable {
 		// TODO Auto-generated method stub
 		ObservableList<String> seedList = FXCollections.observableArrayList("Random Board", "10 Cell Seed");
 		seedBox.setItems(seedList);
-		builder = new LoopBuilder();
+		
+		loopbuilder = new LoopBuilder();
+		logicbuilder = new LogicBuilder();
+
+		colorField.setText("SPRINGGREEN");
+		colorLabel.setBackground(new Background(new BackgroundFill(Color.SPRINGGREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+
 	}
 
 	@FXML
@@ -64,12 +79,12 @@ public class GUIController implements Initializable {
 			s.setScene(scene);
 			s.setTitle("The Game of Life");
 
-			GameOfLifeLogic gll = new GameOfLifeLogic(sL,sW);
+			GameOfLifeLogic gll = new GameOfLifeLogic(sL,sW,logicbuilder);
 			Canvas canvas = new Canvas(sL,sW); //600,400
 			root.getChildren().add(canvas);
 			GraphicsContext gc = canvas.getGraphicsContext2D();
 
-			GameOfLifeLoop gl = new GameOfLifeLoop(gc, gll, builder);
+			GameOfLifeLoop gl = new GameOfLifeLoop(gc, gll, loopbuilder);
 			s.setOnCloseRequest(event -> {
 			    gl.setIsRunning(false);
 			});
@@ -84,16 +99,37 @@ public class GUIController implements Initializable {
 	@FXML
 	public void setSeed(){
 		String seed = (String) seedBox.getSelectionModel().getSelectedItem();
-		builder.setSeed(seed);
+		loopbuilder.setSeed(seed);
+	}
+
+	@FXML
+	public void setColor(KeyEvent e){
+
+		if(e.getCode() == KeyCode.ENTER){
+
+			Color color;
+
+			try {
+				color = Color.valueOf(colorField.getText().trim().toUpperCase()); //auto uppercase for convenience
+				colorLabel.setBackground(new Background(new BackgroundFill(color, CornerRadii.EMPTY, Insets.EMPTY)));
+
+			} catch(IllegalArgumentException ex){
+				messageLabel.setText("Not a color");
+				color = (Color) colorLabel.getBackground().getFills().get(0).getFill();
+			}
+
+			loopbuilder.setColor(color);
+
+		}
 	}
 
 	@FXML
 	public void toggleRainbow(){
 		if(rainbowBox.isSelected()){
-			builder.setIsRainbow(true);
+			loopbuilder.setIsRainbow(true);
 			System.out.println("RAINBOW: Set to true!");
 		} else {
-			builder.setIsRainbow(false);
+			loopbuilder.setIsRainbow(false);
 			System.out.println("RAINBOW: Set to false...");
 		}
 	}
@@ -101,10 +137,10 @@ public class GUIController implements Initializable {
 	@FXML
 	public void toggleChaos(){
 		if(chaosBox.isSelected()){
-			builder.setIsChaos(true);
+			logicbuilder.setIsChaos(true);
 			System.out.println("CHAOS: Set to true!");
 		} else {
-			builder.setIsChaos(false);
+			logicbuilder.setIsChaos(false);
 			System.out.println("CHAOS: Set to false...");
 		}
 	}

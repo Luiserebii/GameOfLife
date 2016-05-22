@@ -17,9 +17,8 @@ public class GameOfLifeLoop extends AnimationTimer{
 	//=========== Control variables used for settings
 
 	private String seed;
-	private String color;
+	private Color color;
 	private boolean isRainbow;
-	private boolean isChaos;
 
 	//===========
 
@@ -29,14 +28,12 @@ public class GameOfLifeLoop extends AnimationTimer{
 	public static class LoopBuilder {
 
 		private String seed = "Random Board";
-		private String color = "SPRINGGREEN";
+		private Color color = Color.SPRINGGREEN;
 		private boolean isRainbow = false;
-		private boolean isChaos = false;
 
 		public void setSeed(String inSeed) { seed = inSeed; }
-		public void setColor(String inColor) { color = inColor; }
+		public void setColor(Color inColor) { color = inColor; }
 		public void setIsRainbow(boolean inRainbow) { isRainbow = inRainbow; }
-		public void setIsChaos(boolean inChaos) { isChaos = inChaos; }
 
 	}
 
@@ -49,7 +46,6 @@ public class GameOfLifeLoop extends AnimationTimer{
 		seed = b.seed;
 		color = b.color;
 		isRainbow = b.isRainbow;
-		isChaos = b.isChaos;
 	}
 
 	public void setup(){
@@ -119,7 +115,7 @@ public class GameOfLifeLoop extends AnimationTimer{
 						int b = rand.nextInt(256);
 						gc.setFill(Color.rgb(r,g,b));
 					} else {
-						gc.setFill(Color.SPRINGGREEN);
+						gc.setFill(color);
 					}
 
 
