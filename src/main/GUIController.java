@@ -6,6 +6,9 @@ import java.util.Scanner;
 
 import gameoflife.GameOfLifeLogic;
 import gameoflife.GameOfLifeLoop;
+import gameoflife.GameOfLifeLoop.LoopBuilder;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
@@ -19,6 +22,8 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class GUIController implements Initializable {
+
+	private LoopBuilder builder;
 
 	@FXML
 	private TextField lengthField, widthField, colorField;
@@ -35,7 +40,9 @@ public class GUIController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
-
+		ObservableList<String> seedList = FXCollections.observableArrayList("Random Board", "10 Cell Seed");
+		seedBox.setItems(seedList);
+		builder = new LoopBuilder();
 	}
 
 	@FXML
@@ -62,7 +69,7 @@ public class GUIController implements Initializable {
 			root.getChildren().add(canvas);
 			GraphicsContext gc = canvas.getGraphicsContext2D();
 
-			GameOfLifeLoop gl = new GameOfLifeLoop(gc,gll);
+			GameOfLifeLoop gl = new GameOfLifeLoop(gc, gll, builder);
 			s.setOnCloseRequest(event -> {
 			    gl.setIsRunning(false);
 			});
@@ -72,6 +79,34 @@ public class GUIController implements Initializable {
 			s.show();
 		}
 
+	}
+
+	@FXML
+	public void setSeed(){
+		String seed = (String) seedBox.getSelectionModel().getSelectedItem();
+		builder.setSeed(seed);
+	}
+
+	@FXML
+	public void toggleRainbow(){
+		if(rainbowBox.isSelected()){
+			builder.setIsRainbow(true);
+			System.out.println("RAINBOW: Set to true!");
+		} else {
+			builder.setIsRainbow(false);
+			System.out.println("RAINBOW: Set to false...");
+		}
+	}
+
+	@FXML
+	public void toggleChaos(){
+		if(chaosBox.isSelected()){
+			builder.setIsChaos(true);
+			System.out.println("CHAOS: Set to true!");
+		} else {
+			builder.setIsChaos(false);
+			System.out.println("CHAOS: Set to false...");
+		}
 	}
 
 	public int getLength(){

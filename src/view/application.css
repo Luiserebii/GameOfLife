@@ -20,6 +20,12 @@ Label {
 
 }
 
+CheckBox {
+
+	-fx-font-family: '8bit';
+	-fx-text-fill: #00FF7F; /* Color is Color.SPRINGGREEN - made to match the GOL block color.*/
+}
+
 #titleLabel {
 	-fx-font-size: 40px;
 }

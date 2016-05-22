@@ -14,18 +14,54 @@ public class GameOfLifeLoop extends AnimationTimer{
 
 	private boolean isRunning;
 
-	public GameOfLifeLoop(GraphicsContext inGC, GameOfLifeLogic inGL){
+	//=========== Control variables used for settings
+
+	private String seed;
+	private String color;
+	private boolean isRainbow;
+	private boolean isChaos;
+
+	//===========
+
+
+	//Making Builder class to simplify constructor/setting; GameOfLifeLogic needs to be passed to make a GLL, and perhaps bad design to allow for constructor without necessary component
+	//Utilizing similar Builder pattern from Effective Java; is this a good decision?
+	public static class LoopBuilder {
+
+		private String seed = "Random Board";
+		private String color = "SPRINGGREEN";
+		private boolean isRainbow = false;
+		private boolean isChaos = false;
+
+		public void setSeed(String inSeed) { seed = inSeed; }
+		public void setColor(String inColor) { color = inColor; }
+		public void setIsRainbow(boolean inRainbow) { isRainbow = inRainbow; }
+		public void setIsChaos(boolean inChaos) { isChaos = inChaos; }
+
+	}
+
+	public GameOfLifeLoop(GraphicsContext inGC, GameOfLifeLogic inGL, LoopBuilder b){
 
 		gc = inGC;
 		gl = inGL;
 		isRunning = true;
+
+		seed = b.seed;
+		color = b.color;
+		isRainbow = b.isRainbow;
+		isChaos = b.isChaos;
 	}
 
 	public void setup(){
 
 		gl.clearBoard();
-		gl.randomBoard();
-		//gl.tenCellSeed();
+
+		if(seed.equals("Random Board")){
+			gl.randomBoard();
+		}
+		if(seed.equals("10 Cell Seed")){
+			gl.tenCellSeed();
+		}
 	}
 
 	@Override
@@ -76,12 +112,17 @@ public class GameOfLifeLoop extends AnimationTimer{
 				}
 				if(cellBoard[i][j].getState() == 1){
 
-					gc.setFill(Color.SPRINGGREEN);
-//					Random rand = new Random();
-//					int r = rand.nextInt(256);
-//					int g = rand.nextInt(256);
-//					int b = rand.nextInt(256);
-//					gc.setFill(Color.rgb(r,g,b));
+					if(isRainbow){
+						Random rand = new Random();
+						int r = rand.nextInt(256);
+						int g = rand.nextInt(256);
+						int b = rand.nextInt(256);
+						gc.setFill(Color.rgb(r,g,b));
+					} else {
+						gc.setFill(Color.SPRINGGREEN);
+					}
+
+
 					gc.fillRect(j*10,i*10,10,10);
 				}
 
@@ -96,9 +137,9 @@ public class GameOfLifeLoop extends AnimationTimer{
 		isRunning = isRun;
 	}
 
+	public String getSeed(){ return seed; }
 
-
-
+	public void setSeed(String inSeed){ seed = inSeed; }
 
 
 }
