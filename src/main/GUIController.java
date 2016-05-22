@@ -1,5 +1,6 @@
 package main;
 
+import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.Scanner;
@@ -26,6 +27,8 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
@@ -33,6 +36,11 @@ public class GUIController implements Initializable {
 
 	private LoopBuilder loopbuilder;
 	private LogicBuilder logicbuilder;
+
+	private MediaPlayer mplayer;
+
+	private final String lotOn = "music/soundfx/lensoftruth_on.mp3";
+	private final String lotOff = "music/soundfx/lensoftruth_off.mp3";
 
 	@FXML
 	private TextField lengthField, widthField, colorField;
@@ -146,9 +154,13 @@ public class GUIController implements Initializable {
 	public void toggleChaos(){
 		if(chaosBox.isSelected()){
 			logicbuilder.setIsChaos(true);
+			mplayer = new MediaPlayer(new Media(new File(lotOn).toURI().toString()));
+			mplayer.play();
 			System.out.println("CHAOS: Set to true!");
 		} else {
 			logicbuilder.setIsChaos(false);
+			mplayer = new MediaPlayer(new Media(new File(lotOff).toURI().toString()));
+			mplayer.play();
 			System.out.println("CHAOS: Set to false...");
 		}
 	}
