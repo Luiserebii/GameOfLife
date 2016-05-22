@@ -5,7 +5,6 @@ public class Cell {
 	private int state;
 	private int tempState;
 
-
 	public Cell(){
 
 		state = 0; //0 meaning dead, 1 being alive
@@ -13,12 +12,10 @@ public class Cell {
 	}
 
 	public void setTempState(int inTempState){
-
 		tempState = inTempState;
 	}
 
 	public void setState(int inState){
-
 		state = inState;
 	}
 

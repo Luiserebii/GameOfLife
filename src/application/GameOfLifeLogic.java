@@ -4,7 +4,6 @@ import java.util.Random;
 
 public class GameOfLifeLogic {
 
-	//public Cell[][] cellBoard = new Cell[60][40];
 	private Cell[][] cellBoard; //note x and y is reversed b/c row/column --> y/x
 
 	private int sizeLength = 600;
@@ -38,7 +37,6 @@ public class GameOfLifeLogic {
 
 			}
 		}
-
 	}
 
 	public void randomBoard(){
@@ -56,7 +54,6 @@ public class GameOfLifeLogic {
 					cellBoard[i][j].setState(1);
 				}
 
-
 			}
 		}
 
@@ -66,10 +63,7 @@ public class GameOfLifeLogic {
 	public void tenCellSeed(){
 
 		for(int i = 0; i < 10; i++){
-
 			cellBoard[((sizeWidth/10)/2)-1][i+(((sizeLength/10)/2)-5)].setState(1); //19 i+25
-
-
 		}
 	}
 
@@ -83,12 +77,10 @@ public class GameOfLifeLogic {
 
 				if(cellBoard[i][j].getState() == 1){
 					if(neighborInt <= 1){ //if one or no neighbors
-						//cellBoard[i][j].setState(0); //dies
-						cellBoard[i][j].setTempState(0);
+						cellBoard[i][j].setTempState(0);//dies
 					}
 					if(neighborInt >= 4){ //if four or more neighbors TRY JUST 5 OR MORE LEAVE 2/3 TRIPPY AF, WITH 10 SEED
-						//cellBoard[i][j].setState(0); //DIE
-						cellBoard[i][j].setTempState(0);
+						cellBoard[i][j].setTempState(0);//DIE
 					}
 					if(neighborInt == 2 || neighborInt == 3){ //if two or three neighbors
 						//stays alive
