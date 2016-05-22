@@ -44,7 +44,7 @@ public class GUIController implements Initializable {
 		Stage s = new Stage();
 		Group root = new Group();
 		Scene scene = new Scene(root);
-		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+		scene.getStylesheets().add(getClass().getResource("../view/application.css").toExternalForm());
 		s.setScene(scene);
 		s.setTitle("The Game of Life");
 
@@ -54,6 +54,9 @@ public class GUIController implements Initializable {
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 
 		GameOfLifeLoop gl = new GameOfLifeLoop(gc,gll);
+		s.setOnCloseRequest(event -> {
+		    gl.setIsRunning(false);
+		});
 		gl.setup();
 		gl.start();
 

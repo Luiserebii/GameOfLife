@@ -15,12 +15,16 @@
 Label {
 
 	-fx-font-family: '8bit';
-	-fx-text-fill: green;
+	-fx-text-fill: #00FF7F; /* Color is Color.SPRINGGREEN - made to match the GOL block color.*/
 
 }
 
 #titleLabel {
-	-fx-font-size: 36px;
+	-fx-font-size: 40px;
+}
+
+#fieldLabel {
+	-fx-font-size: 20px;
 }
 
 
