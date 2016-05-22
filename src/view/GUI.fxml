@@ -53,7 +53,7 @@
                   </Label>
                </children>
             </GridPane>
-            <Label id="messageLabel" fx:id="messageLabel" prefHeight="26.0" prefWidth="400.0" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
+            <Label id="messageLabel" fx:id="messageLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="26.0" prefWidth="400.0" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
                <GridPane.margin>
                   <Insets top="30.0" />
                </GridPane.margin>

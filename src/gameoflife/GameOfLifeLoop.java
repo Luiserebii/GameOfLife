@@ -117,8 +117,6 @@ public class GameOfLifeLoop extends AnimationTimer{
 					} else {
 						gc.setFill(color);
 					}
-
-
 					gc.fillRect(j*10,i*10,10,10);
 				}
 

@@ -51,7 +51,7 @@ public class GUIController implements Initializable {
 		// TODO Auto-generated method stub
 		ObservableList<String> seedList = FXCollections.observableArrayList("Random Board", "10 Cell Seed");
 		seedBox.setItems(seedList);
-		
+
 		loopbuilder = new LoopBuilder();
 		logicbuilder = new LogicBuilder();
 
@@ -99,7 +99,9 @@ public class GUIController implements Initializable {
 	@FXML
 	public void setSeed(){
 		String seed = (String) seedBox.getSelectionModel().getSelectedItem();
-		loopbuilder.setSeed(seed);
+		if(seed != null){ //Fixes bug with ComboBox; interesting consequence of JavaFX Combobox is that opening the box, and clicking outside it, sets SelectionModel's item to null; conditional to prevent null being set
+			loopbuilder.setSeed(seed);
+		}
 	}
 
 	@FXML
@@ -110,7 +112,7 @@ public class GUIController implements Initializable {
 			Color color;
 
 			try {
-				color = Color.valueOf(colorField.getText().trim().toUpperCase()); //auto uppercase for convenience
+				color = Color.web(colorField.getText().trim().toUpperCase()); //auto uppercase for convenience
 				colorLabel.setBackground(new Background(new BackgroundFill(color, CornerRadii.EMPTY, Insets.EMPTY)));
 
 			} catch(IllegalArgumentException ex){
@@ -128,9 +130,15 @@ public class GUIController implements Initializable {
 		if(rainbowBox.isSelected()){
 			loopbuilder.setIsRainbow(true);
 			System.out.println("RAINBOW: Set to true!");
+			colorField.setEditable(false);
+			colorLabel.setStyle("-fx-opacity: 0.5;");
+			colorField.setStyle("-fx-opacity: 0.5;");
 		} else {
 			loopbuilder.setIsRainbow(false);
 			System.out.println("RAINBOW: Set to false...");
+			colorField.setEditable(true);
+			colorLabel.setStyle("-fx-opacity: 1.0;");
+			colorField.setStyle("-fx-opacity: 1.0;");
 		}
 	}
 

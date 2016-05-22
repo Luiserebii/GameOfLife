@@ -34,4 +34,9 @@ CheckBox {
 	-fx-font-size: 20px;
 }
 
+#messageLabel {
+	-fx-font-size: 16px;
+	-fx-text-fill: red;
+}
+
 
