@@ -33,7 +33,7 @@ public class Main extends Application {
 			GraphicsContext gc = canvas.getGraphicsContext2D();
 
 			GameOfLifeLoop gl = new GameOfLifeLoop(gc,gll);
-			gl.kek();
+			gl.setup();
 			gl.start();
 
 

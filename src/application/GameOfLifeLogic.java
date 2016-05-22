@@ -77,10 +77,10 @@ public class GameOfLifeLogic {
 
 				if(cellBoard[i][j].getState() == 1){
 					if(neighborInt <= 1){ //if one or no neighbors
-						cellBoard[i][j].setTempState(0);//dies
+						cellBoard[i][j].setTempState(0); //dies
 					}
 					if(neighborInt >= 4){ //if four or more neighbors TRY JUST 5 OR MORE LEAVE 2/3 TRIPPY AF, WITH 10 SEED
-						cellBoard[i][j].setTempState(0);//DIE
+						cellBoard[i][j].setTempState(0); //DIE
 					}
 					if(neighborInt == 2 || neighborInt == 3){ //if two or three neighbors
 						//stays alive
@@ -90,8 +90,7 @@ public class GameOfLifeLogic {
 
 				if(cellBoard[i][j].getState() == 0){ //If dead
 					if(neighborInt == 3){ //if three neighbors
-						//cellBoard[i][j].setState(1); //I LIIIIIIIIIIIIIIIIIIVEEE!!!!
-						cellBoard[i][j].setTempState(1);
+						cellBoard[i][j].setTempState(1); //I LIIIIIIIIIIIIIIIIIIVEEE!!!!
 					}
 				}
 
@@ -191,7 +190,6 @@ public class GameOfLifeLogic {
 	}
 
 	public Cell[][] getCellBoard(){
-
 		return cellBoard;
 	}
 

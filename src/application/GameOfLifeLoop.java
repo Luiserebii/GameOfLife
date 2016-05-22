@@ -8,9 +8,9 @@ import javafx.scene.paint.Color;
 
 public class GameOfLifeLoop extends AnimationTimer{
 
-	GraphicsContext gc;
-	GameOfLifeLogic gl;
-	Cell[][] cellBoard;
+	private GraphicsContext gc;
+	private GameOfLifeLogic gl;
+	private Cell[][] cellBoard;
 
 	public GameOfLifeLoop(GraphicsContext inGC, GameOfLifeLogic inGL){
 
@@ -18,7 +18,7 @@ public class GameOfLifeLoop extends AnimationTimer{
 		gl = inGL;
 	}
 
-	public void kek(){
+	public void setup(){
 
 		gl.clearBoard();
 		gl.randomBoard();
@@ -29,8 +29,6 @@ public class GameOfLifeLoop extends AnimationTimer{
 	public void handle(long now) {
 		// TODO Auto-generated method stub
 
-//		gl.clearBoard();
-//		gl.randomBoard();
 		cellBoard = gl.getCellBoard();
 		drawCellBoard(cellBoard);
 		int[] boardSize = gl.getSize();
