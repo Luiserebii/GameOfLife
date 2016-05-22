@@ -11,3 +11,16 @@
 	-fx-background-color: black; /*#1E1E1E */
 
 }
+
+Label {
+
+	-fx-font-family: '8bit';
+	-fx-text-fill: green;
+
+}
+
+#titleLabel {
+	-fx-font-size: 36px;
+}
+
+
