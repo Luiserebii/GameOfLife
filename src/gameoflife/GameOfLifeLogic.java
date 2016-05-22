@@ -1,4 +1,4 @@
-package application;
+package gameoflife;
 
 import java.util.Random;
 

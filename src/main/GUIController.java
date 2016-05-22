@@ -1,9 +1,11 @@
-package application;
+package main;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 
+import gameoflife.GameOfLifeLogic;
+import gameoflife.GameOfLifeLoop;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
