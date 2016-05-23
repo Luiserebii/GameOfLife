@@ -83,7 +83,7 @@ public class GUIController implements Initializable {
 			Stage s = new Stage();
 			Group root = new Group();
 			Scene scene = new Scene(root);
-			scene.getStylesheets().add(getClass().getResource("../view/application.css").toExternalForm());
+			scene.getStylesheets().add(getClass().getResource("/view/application.css").toExternalForm());
 			s.setScene(scene);
 			s.setTitle("The Game of Life");
 
