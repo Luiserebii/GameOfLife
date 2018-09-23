@@ -2,10 +2,11 @@
 Game of Life implemented in JavaFX. Includes various options such as the ability to choose the size of the board, change the cells' colors, and set the initial seed.
 
 <br>
-![alt tag](http://i.imgur.com/ULnjTyJ.png)<br>
+<div align="center"><img src="http://i.imgur.com/ULnjTyJ.png"/></div><br>
 Image of Game Of Life Initialize Settings window
 <br>
 <br>
+
 ## Features
 
 ### Size input: 
